@@ -13,7 +13,7 @@
             <script type="text/template" id="user-list-template">
      <a href="#/new" class="btn btn-primary">New</a>
     <hr />
-    <table class="table striped">
+    <table class="table table-bordered">
       <thead>
         <tr>
           <th>First Name</th><th>Last Name</th><th>Age</th><th></th>

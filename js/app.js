@@ -18,7 +18,7 @@
     };
 
     $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
-      options.url = 'http://backbonejs-beginner.herokuapp.com' + options.url;
+      options.url = 'http://developer.trimet.org/ws/V1/arrivals/locIDs/2580/appID/5E48DCD7031297B7CBF2F37FD';
     });
 
     var Users = Backbone.Collection.extend({
@@ -35,8 +35,9 @@
         var that = this;
         var users = new Users();
         users.fetch({
-          success: function (users) {
-            var template = _.template($('#user-list-template').html(), {users: users.models});
+          success: function (data) {
+            var fdata =pareXml(data)
+            var template = _.template($('#user-list-template').html(), fdata);
             that.$el.html(template);
           }
         })
@@ -156,3 +157,25 @@ Backbone.history.start();
  var listView = new ListView();
  
  */
+function parseXml(xml) {
+   var dom = null;
+   if (window.DOMParser) {
+      try { 
+         dom = (new DOMParser()).parseFromString(xml, "text/xml"); 
+      } 
+      catch (e) { dom = null; }
+   }
+   else if (window.ActiveXObject) {
+      try {
+         dom = new ActiveXObject('Microsoft.XMLDOM');
+         dom.async = false;
+         if (!dom.loadXML(xml)) // parse error ..
+
+            window.alert(dom.parseError.reason + dom.parseError.srcText);
+      } 
+      catch (e) { dom = null; }
+   }
+   else
+      alert("cannot parse xml string!");
+   return dom;
+}
