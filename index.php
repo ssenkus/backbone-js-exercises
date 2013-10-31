@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>hello-backbonejs</title>
+    <link rel="stylesheet" type="text/css" href="css/screen.css" />
   </head>
   <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>

@@ -20,7 +20,7 @@
     var ItemView = Backbone.View.extend({
         tagName: 'li',
         events: {
-            'click span.swap': 'swap',
+            'click span': 'swap',
             'click span.delete': 'remove'
         },
         initialize: function() {
