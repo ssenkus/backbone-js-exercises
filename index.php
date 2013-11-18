@@ -47,13 +47,14 @@
                     <div class="col-lg-8">
                         <div id="carousel0" class="carousel slide" data-ride="carousel">
                             <!-- Indicators -->
+                            <!--
                             <ol class="carousel-indicators">
                                 <li data-target="#carousel0" data-slide-to="0" class="active"></li>
                                 <li data-target="#carousel0" data-slide-to="1"></li>
                                 <li data-target="#carousel0" data-slide-to="2"></li>
                                 <li data-target="#carousel0" data-slide-to="3"></li>
                             </ol>
-
+                            -->
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <div class="item active">
@@ -62,8 +63,7 @@
                                         <p>
                                         <a href="#" class="btn btn-success btn-lg" role="button">Learn more &raquo;</a>
                                         <a href="#" id="btnInfo" class="btn btn-info btn-lg" role="button">Learn more &raquo;</a>
-                                        <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a>
-                                        </p>
+                                                                                </p>
                                     </script>
                                 </div>
                                 <div class="item">
@@ -88,12 +88,14 @@
 
 
                             <!-- Controls -->
+                            <!--
                             <a class="left carousel-control" href="#carousel0" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
                             </a>
                             <a class="right carousel-control" href="#carousel0" data-slide="next">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </a>
+                            -->
                         </div>
                     </div>
                     <div class="col-sm-4">
