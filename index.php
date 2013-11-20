@@ -47,14 +47,14 @@
                     <div class="col-lg-8">
                         <div id="carousel0" class="carousel slide" data-ride="carousel">
                             <!-- Indicators -->
-                            <!--
+                            
                             <ol class="carousel-indicators">
                                 <li data-target="#carousel0" data-slide-to="0" class="active"></li>
                                 <li data-target="#carousel0" data-slide-to="1"></li>
                                 <li data-target="#carousel0" data-slide-to="2"></li>
                                 <li data-target="#carousel0" data-slide-to="3"></li>
                             </ol>
-                            -->
+                            
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <div class="item active">
@@ -100,19 +100,19 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="list-group">
-                            <a href="#" class="list-group-item active">
+                            <a data-target="#carousel0" data-slide-to="0" href="#" class="list-group-item active">
                                 <h4 class="list-group-item-heading">List group item heading</h4>
                                 <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
                             </a>
-                            <a href="#" class="list-group-item">
+                            <a data-target="#carousel1" data-slide-to="1" href="#" class="list-group-item">
                                 <h4 class="list-group-item-heading">List group item heading</h4>
                                 <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
                             </a>
-                            <a href="#" class="list-group-item">
+                            <a data-target="#carousel2" data-slide-to="2" href="#" class="list-group-item">
                                 <h4 class="list-group-item-heading">List group item heading</h4>
                                 <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
                             </a>
-                            <a href="#" class="list-group-item">
+                            <a data-target="#carousel1" data-slide-to="3" href="#" class="list-group-item">
 
                                 <h4 class="list-group-item-heading">List group item heading</h4>
                                 <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
