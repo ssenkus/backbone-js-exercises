@@ -43,17 +43,14 @@ try {
     $link = new PDO('mysql:host=localhost;dbname=backbonejs', 'root', '');
     $prepExp = $link->prepare('select * from slides');
     $prepExp->execute();
-    $result = $prepExp->fetch(PDO::FETCH_ASSOC);
-//    $result = stripslashes($result);
+    $result = $prepExp->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $ex) {
     print($ex->getMessage());
 }
 
-
-
 $response = array(
     'data' => $result
 );
-die(jsonResponse($response));
+die(jsonResponse($response, false));
 
 ?>
