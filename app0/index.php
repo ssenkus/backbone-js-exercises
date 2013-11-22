@@ -9,15 +9,8 @@
     <body>
         <div class="container">
             <div class="row">
-
-                <div id="todo"></div>
-                <script type="text/template" id="item-template">
-                    <div>
-                    <input id="todo_complete" type="checkbox" <%= completed ? 'checked="checked"' : '' %> />
-                    <%= title %>
-                    </div>
-                </script>                
-
+                <div id="appView"></div>
+ 
             </div>
         </div> <!-- /container -->
 
