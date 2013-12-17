@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    /*
+     Backbone.sync = function(method, model) {
+     console.log('method' + ": " + model.url);
+     };
+     */
 
     var Slide = Backbone.Model.extend({
         defaults: {
@@ -13,7 +18,7 @@ $(document).ready(function() {
         },
         parse: function(res) {
             console.log('model', res);
-            return res.data;
+            return res;
         }
     });
 
@@ -24,19 +29,18 @@ $(document).ready(function() {
             console.log('collection - response', response);
             return response.data;
         }
-
     });
 
     var CarouselView = Backbone.View.extend({
-        //el: '#carousel-inner',
-        collection: new CarouselSlides,
+        collection: new CarouselSlides(),
+        listItems: $('.list-group-item'),
+        
         initialize: function() {
             var self = this;
+            this.listenTo(this.collection, 'reset', this.render)
             this.collection.fetch().done(function() {
                 self.render();
             });
-            this.listItems = $('.list-group-item');
-            this.render();
         },
         render: function() {
             var template = _.template($("#slide0-content").html(), {title: 'Slide 0 Title'});
@@ -45,20 +49,19 @@ $(document).ready(function() {
                 interval: 0,
                 pause: true
             });
-
-            var coll = this.collection;
-            console.log('this.collection', this.collection);
-
-//            console.log(this.listItems);
-//            this.collection.each(function(i) {
-  //              console.log('log item.', i);
-    //        });
-
+            this.collection.models.forEach(this.populate);
+        },
+        populate: function(a, b, c) {
+           
+            $('.item .slide_content').eq(b).append(a.get('slide_content'));
+            $('.list-group-item-text').eq(b).text(a.get('menu_description'));
+            $('.carousel-caption').eq(b).text(a.get('menu_header'));
+            $('.list-group-item-heading').eq(b).text(a.get('menu_header'));
         },
         events: {
             'click #btnInfo': 'btnGetInfo',
-            'click a.list-group-item': 'changeSlide'
-                // '': ''
+            'click .list-group-item': 'changeSlide'
+
         },
         btnGetInfo: function() {
             $('#myModal').modal({
@@ -66,6 +69,7 @@ $(document).ready(function() {
             });
         },
         changeSlide: function(e) {
+            console.log(e)
             var $targetElem = $(e.currentTarget);
             var $listItemNum = $targetElem.index();
             $targetElem.addClass('active').siblings().removeClass('active');
@@ -76,5 +80,6 @@ $(document).ready(function() {
     });
 
 
-    var carousel = new CarouselView({el: $('#carousel-container')});
+    window.carousel = new CarouselView({el: $('#carousel-container')});
+    
 });

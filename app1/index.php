@@ -47,39 +47,40 @@
                     <div class="col-lg-8">
                         <div id="carousel0" class="carousel slide" data-ride="carousel">
                             <!-- Indicators -->
-                            
+
                             <ol class="carousel-indicators">
                                 <li data-target="#carousel0" data-slide-to="0" class="active"></li>
                                 <li data-target="#carousel0" data-slide-to="1"></li>
                                 <li data-target="#carousel0" data-slide-to="2"></li>
                                 <li data-target="#carousel0" data-slide-to="3"></li>
                             </ol>
-                            
+
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
                                 <div class="item active">
+                                    <div class="slide_content"></div>
                                     <script type="text/template" id="slide0-content">
                                         <h1><%= title %></h1>
                                         <p>
-                                        <a href="#" class="btn btn-success btn-lg" role="button">Learn more &raquo;</a>
-                                        <a href="#" id="btnInfo" class="btn btn-info btn-lg" role="button">Learn more &raquo;</a>
-                                                                                </p>
+                                            <a href="#" class="btn btn-success btn-lg" role="button">Learn more &raquo;</a>
+                                            <a href="#" id="btnInfo" class="btn btn-info btn-lg" role="button">Learn more &raquo;</a>
+                                        </p>
                                     </script>
                                 </div>
                                 <div class="item">
-                                    <img src="//placekitten.com/800/350" alt="...">
+                                    <div class="slide_content"></div>
                                     <div class="carousel-caption">
                                         slide1
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <img src="//placedog.com/800/350" alt="...">
+                                    <div class="slide_content"></div>
                                     <div class="carousel-caption">
                                         slide2
                                     </div>
                                 </div>
                                 <div class="item">
-                                    <img src="//placebear.com/800/350" alt="...">
+                                    <div class="slide_content"></div>
                                     <div class="carousel-caption">
                                         slide3
                                     </div>
@@ -133,7 +134,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.0/backbone.localStorage-min.js"></script>
         <script src="js/app.js"></script>
-        <script>    
+        <script>
         </script>
 
         <img src="//loomisadventures.com/sites/default/files/images/blog/illumination-rock-mount-hood-06-large-07.24.11.jpg" style="display:none;"/>

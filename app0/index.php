@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div id="appView"></div>
- 
+
             </div>
         </div> <!-- /container -->
 
@@ -20,10 +20,11 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
         <script src="js/app.js"></script>
-        <script>    
+        <script>
         </script>
 
-        <img src="//loomisadventures.com/sites/default/files/images/blog/illumination-rock-mount-hood-06-large-07.24.11.jpg" style="display:none;"/>
-
+        <div id="hidden">
+            <img src="//loomisadventures.com/sites/default/files/images/blog/illumination-rock-mount-hood-06-large-07.24.11.jpg" style="display:none;"/>
+        </div>
     </body>
 </html>
