@@ -63,7 +63,7 @@ $(document).ready(function() {
         },
         events: {
             'click #btnInfo': 'btnGetInfo',
-            'click #btnSuccess': 'bthShowForm',
+            'click #btnSuccess': 'btnShowForm',
             'click .list-group-item': 'changeSlide'
 
         },
@@ -73,7 +73,7 @@ $(document).ready(function() {
             });
         },
         btnShowForm: function() {
-            $('#myModal').modal({
+            $('#formModal').modal({
                 remote: 'modals/form.html'
             });            
         },
