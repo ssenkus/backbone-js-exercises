@@ -1,9 +1,6 @@
 $(document).ready(function() {
-    /*
-     Backbone.sync = function(method, model) {
-     console.log('method' + ": " + model.url);
-     };
-     */
+
+
 
     var Slide = Backbone.Model.extend({
         defaults: {
@@ -32,12 +29,15 @@ $(document).ready(function() {
     });
 
     var CarouselView = Backbone.View.extend({
-        collection: new CarouselSlides(),
+        el: $('#carousel-container'),
+        collection: new CarouselSlides,
         listItems: $('.list-group-item'),
-        
         initialize: function() {
             var self = this;
-            this.listenTo(this.collection, 'reset', this.render)
+            //this.collection.bind('reset refresh', this.render, this);
+            //this.collection.bind("reset", _.bind(this.render, this));
+            this.listenTo(this.collection, 'sync', this.render);
+            this.listenTo(this.collection, 'change', this.render);
             this.collection.fetch().done(function() {
                 self.render();
             });
@@ -49,17 +49,21 @@ $(document).ready(function() {
                 interval: 0,
                 pause: true
             });
-            this.collection.models.forEach(this.populate);
+            console.log('render dat view')
+            this.populate();
+
         },
-        populate: function(a, b, c) {
-           
-            $('.item .slide_content').eq(b).append(a.get('slide_content'));
-            $('.list-group-item-text').eq(b).text(a.get('menu_description'));
-            $('.carousel-caption').eq(b).text(a.get('menu_header'));
-            $('.list-group-item-heading').eq(b).text(a.get('menu_header'));
+        populate: function() {
+            this.collection.models.forEach(function(a, b, c) {
+                $('.item .slide_content').eq(b).append(a.get('slide_content'));
+                $('.list-group-item-text').eq(b).text(a.get('menu_description'));
+                $('.carousel-caption').eq(b).text(a.get('menu_header'));
+                $('.list-group-item-heading').eq(b).text(a.get('menu_header'));
+            });
         },
         events: {
             'click #btnInfo': 'btnGetInfo',
+            'click #btnSuccess': 'bthShowForm',
             'click .list-group-item': 'changeSlide'
 
         },
@@ -68,8 +72,13 @@ $(document).ready(function() {
                 remote: 'modals/mountain.html'
             });
         },
+        btnShowForm: function() {
+            $('#myModal').modal({
+                remote: 'modals/form.html'
+            });            
+        },
         changeSlide: function(e) {
-            console.log(e)
+
             var $targetElem = $(e.currentTarget);
             var $listItemNum = $targetElem.index();
             $targetElem.addClass('active').siblings().removeClass('active');
@@ -80,6 +89,11 @@ $(document).ready(function() {
     });
 
 
-    window.carousel = new CarouselView({el: $('#carousel-container')});
-    
+    window.carousel = new CarouselView();
+    setInterval(function() {
+        console.log(new Date().toString());
+        window.carousel.collection.fetch();
+        window.carousel.populate();
+    }, 10000);
+
 });

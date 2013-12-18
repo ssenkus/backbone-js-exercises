@@ -62,16 +62,18 @@
                                     <script type="text/template" id="slide0-content">
                                         <h1><%= title %></h1>
                                         <p>
-                                            <a href="#" class="btn btn-success btn-lg" role="button">Learn more &raquo;</a>
-                                            <a href="#" id="btnInfo" class="btn btn-info btn-lg" role="button">Learn more &raquo;</a>
+                                        <a href="#" class="btn btn-success btn-lg" role="button">Learn more &raquo;</a>
+                                        <a href="#" id="btnInfo" class="btn btn-info btn-lg" role="button">Learn more &raquo;</a>
                                         </p>
                                     </script>
                                 </div>
                                 <div class="item">
                                     <div class="slide_content"></div>
                                     <div class="carousel-caption">
-                                        slide1
+
                                     </div>
+                                    
+                                    <iframe width="100%" height="300" src="http://jsfiddle.net/ssenkus/hyRcS/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
                                 </div>
                                 <div class="item">
                                     <div class="slide_content"></div>
