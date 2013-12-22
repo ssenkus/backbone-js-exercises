@@ -1,78 +1,44 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="http://cdn.jsdelivr.net/underscorejs/1.5.2/underscore.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
+        <script src="app/lib/backbone.typeahead.js"></script>        
+        <script src="app/main.js"></script>
 
-
-<!-- TEMPLATES -->
-<script type="text/template" id="search_template">
-    <!-- Access template variables with <%= %> -->
-    <label><%= search_label %></label>
-    <input type="text" id="search_input" />
-    <input type="button" id="search_button" value="Search" />
-</script>
-
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="http://cdn.jsdelivr.net/underscorejs/1.5.2/underscore.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
-
-
-<script>
-	var Formula = Backbone.Model.extend({
-		defaults: {
-			pinyin: 'default',
-			common_name: 'default',
-			brand_name: 'default',
-			concentration: 'default',
-			grams: -1,
-			costPerGram: -1,
-			subTotal: -1
-		}	
-  });
-  
-	var Formulas = Backbone.Collection.extend({
-		model: Formula
-	
-	});
-  
-  
-  
-  
-  var Row = Backbone.View.extend({
-	
-	initialize: function() {
-		this.collection = new Formulas([
-			new Formula({ pinyin: 'Bai Fu Zi'}), 
-			new Formula({ pinyin: 'anna'}), 
-			new Formula({ pinyin: 'henry'})
-		]);
-		this.render();
-	},
-	render: function() {
-		console.log(this)
-			var tpl = _.template($('#search_template').html(), { artists: this.collection });
-            var variables = { search_label: "My Search" };
-            // Compile the template using underscore
-            //var template = _.template( $("#search_template").html(), variables );
-            // Load the compiled HTML into the Backbone "el"
-            this.$el.html(tpl);
-			return this;
-	}
-  
-  });
-  
-  
-  var row = new Row();
-  
-  
-  
-  
-  
-</script>
-</body>
+        <script type="text/template" id="formula-template">
+            <table>
+              <thead>
+                <tr>
+                  <th>Pinyin</th>
+                   <th>Common Name</th>
+                    <th>Brand</th>
+                    <th>Concentration</th>
+                    <th>Grams</th>
+                    <th>Cost/Gram</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+              </thead>
+              <tbody>
+            <% _.each(formulas, function(formula) { %>
+                  <tr>
+                    <td><input type="text" value="<%= formula.get('pinyin') %>" /></td>
+                    <td><input type="text" value="<%= formula.get('common_name') %>" /></td>
+                    <td><input type="text" value="<%= formula.get('brand_name') %>" /></td>
+                    <td><input type="text" value="<%= formula.get('concentration') %>" /></td>
+                    <td><input type="text" value="<%= formula.get('grams') %>" /></td>
+                    <td><input type="text" value="<%= formula.get('costPerGram') %>" /></td>
+                    <td><input type="text" value="<%= formula.get('subTotal') %>" /></td>
+                  </tr>
+                <% }); %>  
+              </tbody>
+            </table>
+        </script>
+    </body>
 </html>
