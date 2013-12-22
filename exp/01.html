@@ -11,50 +11,74 @@
             <h1>Formulas</h1>
             <div id="pinyinSearch"></div>
             <hr />
+            <div id="formulas-chosen"></div>
+            <hr />
             <div id="formulas-all"></div>
         </div>
 
-
-
-
-
-
-
-
-
-
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="http://cdn.jsdelivr.net/underscorejs/1.5.2/underscore.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
+        <script src="app/lib/backbone.js"></script>
         <script src="app/lib/backbone.typeahead.js"></script>        
+        <!-- Models -->
+        <script src="app/models/Formula.js"></script>
+        <!-- Collections -->
+        <script src="app/collections/ChosenFormulas.js"></script>
+        <script src="app/collections/Formulas.js"></script>
+        <!-- Views -->
+        <script src="app/views/FormulaTable.js"></script>
+        <script src="app/views/ResultTable.js"></script>
+        
+        
         <script src="app/main.js"></script>
 
+        <script type="text/template" id="typeahead">
+            <input type="text" class="form-control" placeholder="Search" />
+            <ul style="width: 800px;" class="typeahead dropdown-menu"></ul>
+        </script>
+        <script type="text/template" id="typeahead-menu-item">
+            <li>
+            <ul>
+            <li><%- pinyin' %></li>
+            <li><%- common_name %></li>
+            <li><%- brand_name %></li>
+            <li><%- concentration %></li>
+            <li><%- grams %></li>
+            <li><%- costPerGram %></li>
+            <ul>
+            </li>
+        </script>
+
+
+
         <script type="text/template" id="formula-template">
-            <table id="formula-table" class="table table-striped table-bordered table-condensed">
-                <thead>
-                    <tr>
-                        <th>Pinyin</th>
-                        <th>Common Name</th>
-                        <th>Brand</th>
-                        <th>Concentration</th>
-                        <th class="col-sm-5">Grams</th>
-                        <th>Cost/Gram</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% _.each(formulas, function(formula) { %>
-                    <tr>
-                        <td><%= formula.get('pinyin') %></td>
-                        <td><%= formula.get('common_name') %></td>
-                        <td><%= formula.get('brand_name') %></td>
-                        <td><%= formula.get('concentration') %></td>
-                        <td><input class="form-control grams" type="range" min="0" step="0.01" max="20" value="<%= formula.get('grams') %>" /></td>
-                        <td><input class="form-control" type="text" disabled="disabled" value="<%= formula.get('costPerGram') %>" /></td>
-                        <td><span class="subtotal"><%= formula.get('subTotal') %></span></td>
-                    </tr>
-                    <% }); %>  
-                </tbody>
+            <table class="formula-table table table-striped table-bordered table-condensed">
+            <thead>
+            <tr>
+            <th>Pinyin</th>
+            <th>Common Name</th>
+            <th>Brand</th>
+            <th>Concentration</th>
+            <th class="col-sm-5">Grams</th>
+            <th>Cost/Gram</th>
+            <th>Subtotal</th>
+            <th>ACTIONS</td>
+            </tr>
+            </thead>
+            <tbody>
+            <% _.each(formulas, function(formula) { %>
+            <tr>
+            <td><%= formula.get('pinyin') %></td>
+            <td><%= formula.get('common_name') %></td>
+            <td><%= formula.get('brand_name') %></td>
+            <td><%= formula.get('concentration') %></td>
+            <td><input class="form-control grams" type="range" min="0" step="0.01" max="20" value="<%= formula.get('grams') %>" /></td>
+            <td><input class="form-control" type="text" disabled="disabled" value="<%= formula.get('costPerGram') %>" /></td>
+            <td><span class="subtotal"><%= formula.get('subTotal') %></span></td>
+            <td><button type="button" class="btn btn-warning">Delete</button></td>
+            </tr>
+            <% }); %>  
+            </tbody>
             </table>
         </script>
     </body>
