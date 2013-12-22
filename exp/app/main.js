@@ -4,9 +4,9 @@ var Formula = Backbone.Model.extend({
         common_name: 'default',
         brand_name: 'default',
         concentration: 'default',
-        grams: '-1',
+        grams: '0',
         costPerGram: '-1',
-        subTotal: '-1'
+        subTotal: '0'
     }
 });
 
@@ -17,6 +17,10 @@ var Formulas = Backbone.Collection.extend({
 
 var FormulaTable = Backbone.View.extend({
     collection: new Formulas,
+    events: {
+        'change input.grams': 'calculateSubtotal'
+
+    },
     initialize: function() {
         var self = this;
         this.listenTo(this.collection, 'change', this.render);
@@ -25,10 +29,25 @@ var FormulaTable = Backbone.View.extend({
         });
     },
     render: function() {
-        console.log(this);
-        var tpl = _.template($('#formula-template').html(), {formulas: this.collection.models});
-        $('.container').append(tpl);
+
+
+        var view = this;
+
+        $.when(
+            $('#formulas-all').html(_.template($('#formula-template').html(), {
+            formulas: view.collection.models
+        }))).then(function() {
+            view.setElement($("#formula-table"));
+        });
         return this;
+    },
+    calculateSubtotal: function(e) {
+        var $target = $(e.target);
+        var $costPerGram = $target.parent().next().find('input').val();
+        var $subTotal = $target.parent().next().next().find('.subtotal');
+        console.log($target.val(), $costPerGram, $subTotal.text())
+        $subTotal.text(($costPerGram * $target.val()).toFixed(2));
+
     }
 
 });
