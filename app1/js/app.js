@@ -34,8 +34,6 @@ $(document).ready(function() {
         listItems: $('.list-group-item'),
         initialize: function() {
             var self = this;
-            //this.collection.bind('reset refresh', this.render, this);
-            //this.collection.bind("reset", _.bind(this.render, this));
             this.listenTo(this.collection, 'sync', this.render);
             this.listenTo(this.collection, 'change', this.render);
             this.collection.fetch().done(function() {

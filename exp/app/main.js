@@ -4,66 +4,52 @@ var Formula = Backbone.Model.extend({
         common_name: 'default',
         brand_name: 'default',
         concentration: 'default',
-        weight: '-1',
+        grams: '-1',
         costPerGram: '-1',
         subTotal: '-1'
-    },
-    parse: function(response) {
-            return response;
     }
 });
 
 var Formulas = Backbone.Collection.extend({
     model: Formula,
-    url: 'json/products.json',
-    parse: function(response) {
-
-        console.log('collection - parse', response);
-        return response;
-
-    }
+    url: 'json/products.json'
 });
 
-var Row = Backbone.View.extend({
+var FormulaTable = Backbone.View.extend({
     collection: new Formulas,
     initialize: function() {
-        
-            var self = this;
-            //this.collection.bind('reset refresh', this.render, this);
-            //this.collection.bind("reset", _.bind(this.render, this));
-            this.listenTo(this.collection, 'sync', this.render);
-            this.listenTo(this.collection, 'change', this.render);
-            this.collection.fetch().done(function() {
-                self.render();
-            });        
-        
-        
-        
-        
-//        
-//        
-//        this.collection = new Formulas() /*[new Formula({pinyin: 'Bai Fu Zi'}),
-//            new Formula({pinyin: 'anna'}),
-//            new Formula({pinyin: 'henry'})]); */
-//        var that = this;
-//        this.listenTo(this.collection, 'fetch', this.render, this);
-//        this.collection.fetch();
+        var self = this;
+        this.listenTo(this.collection, 'change', this.render);
+        this.collection.fetch().done(function() {
+            self.render();
+        });
     },
     render: function() {
         console.log(this);
         var tpl = _.template($('#formula-template').html(), {formulas: this.collection.models});
-        // Compile the template using underscore
-        //var template = _.template( $("#search_template").html(), variables );
-        // Load the compiled HTML into the Backbone "el"
-        $('body').append(tpl)//this.$el.html(tpl));
+        $('.container').append(tpl);
         return this;
     }
 
 });
 
+
+
 $(document).ready(function() {
-    window.row = new Row();
-})
+
+    window.formulaTable = new FormulaTable();
+    var Bootstrap2 = Backbone.Typeahead.extend({
+        template: '<input type="text" class="form-control" placeholder="Search" /><ul class="typeahead dropdown-menu"></ul>',
+    });
+    var typeahead = new Bootstrap2({
+        collection: window.formulaTable.collection,
+        key: 'pinyin',
+        itemTemplate: '<a><strong><%- pinyin %> </strong> (<%- common_name %>)</a>'
+    });
+    typeahead.setElement('#pinyinSearch').render();
+
+
+});
 
 
 
