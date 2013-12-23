@@ -2,11 +2,19 @@ var ResultTable = Backbone.View.extend({
     collection: new ChosenFormulas(),
     events: {
         'change input.grams': 'calculateSubtotal',
-        'click th': 'add'
+        'click th': 'add',
+        'click button': 'del'
     },
-    add: function() {
+    add: function(e) {
         this.collection.add({});
         this.render();
+
+    },
+    del: function(e) {
+        this.collection.remove({id: $(e.target).data('formula')})
+        $(e.target).parent().parent().fadeOut(200);
+
+
     },
     initialize: function() {
         var self = this;
