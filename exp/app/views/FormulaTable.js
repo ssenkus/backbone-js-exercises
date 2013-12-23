@@ -6,13 +6,13 @@ var FormulaTable = Backbone.View.extend({
         'click tr': 'a'
 
     },
-    a: function() {
+    a: function(e) {
         var $target = $(e.target);
         console.log($target);
     },
     initialize: function() {
         var self = this;
-        this.formulaItems.add({});
+//        this.formulaItems.add({});
         this.listenTo(this.collection, 'change', this.render);
         this.collection.fetch().done(function() {
             self.render();
@@ -23,7 +23,7 @@ var FormulaTable = Backbone.View.extend({
         $.when(
             $('#formulas-all').html(_.template($('#formula-template').html(), {formulas: view.collection.models})))
             .then(function() {
-            view.setElement($(".formula-table"));
+            view.setElement($(".formula-table")[1]);
         });
         return this;
     },
