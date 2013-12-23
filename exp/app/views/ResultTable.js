@@ -3,7 +3,9 @@ var ResultTable = Backbone.View.extend({
     events: {
         'change input.grams': 'calculateSubtotal',
         'click th': 'add',
-        'click button': 'del'
+        'click button.deleteItemBtn': 'del',
+        'click button#calculateTotal': 'calculateTotal'
+
     },
     add: function(e) {
         this.collection.add({});
@@ -13,7 +15,18 @@ var ResultTable = Backbone.View.extend({
     del: function(e) {
         this.collection.remove({id: $(e.target).data('formula')})
         $(e.target).parent().parent().fadeOut(200);
-
+    },
+    calculateTotal: function(e) {
+        console.log(this.collection.models);
+        var total = 0;
+        this.collection.each(function(element, iterator, list) {
+            console.log('element', element.get('subTotal'));
+            console.log('iterator',iterator);
+            console.log('list', list);
+           total += parseInt(element.get('subTotal'),10)
+        });
+        alert(total);
+        
 
     },
     initialize: function() {
@@ -56,6 +69,9 @@ var ResultTable = Backbone.View.extend({
         var $subTotal = $target.parent().next().next().find('.subtotal');
         console.log($target.val(), $costPerGram, $subTotal.text());
         $subTotal.text(($costPerGram * $target.val()).toFixed(2));
+        // TODO: update Sub_total for model based off of the data-formula attribute
+        console.log('sdfsdfsdfsdf',$(e.target).data('formulas'));
+        
 
     }
 
