@@ -2,35 +2,17 @@ var ResultTable = Backbone.View.extend({
     collection: new ChosenFormulas(),
     events: {
         'change input.grams': 'calculateSubtotal',
-        'click th': 'add',
-        'click button.deleteItemBtn': 'del',
+        'click button.deleteItemBtn': 'removeItem',
         'click button#calculateTotal': 'calculateTotal'
-
     },
-    add: function(e) {
-        this.collection.add({});
-        this.render();
-
-    },
-    del: function(e) {
+    removeItem: function(e) {
+	// remove the item from the collection
+	// uses data-formula attribute for model id
         this.collection.remove({id: $(e.target).data('formula')})
         $(e.target).parent().parent().fadeOut(200);
     },
-    calculateTotal: function(e) {
-        console.log(this.collection.models);
-        var total = 0;
-        this.collection.each(function(element, iterator, list) {
-            console.log('element', element.get('subTotal'));
-            console.log('iterator',iterator);
-            console.log('list', list);
-           total += parseInt(element.get('subTotal'),10)
-        });
-        alert(total);
-        
-
-    },
-    initialize: function() {
-        var self = this;
+	createTypeAhead: function() {
+		var self = this;
         var PinyinLookup = Backbone.Typeahead.extend({
             template: $('#typeahead').html()
         });
@@ -52,6 +34,10 @@ var ResultTable = Backbone.View.extend({
         pinyinLookup.collection.fetch().done(function() {
             self.render();
         });
+	},
+	
+    initialize: function() {
+		this.createTypeAhead();
 
     },
     render: function() {
@@ -64,15 +50,45 @@ var ResultTable = Backbone.View.extend({
         return this;
     },
     calculateSubtotal: function(e) {
+	// calculate subtotal for model after user inputs grams
+	
+		// this will need validation
+		// for negative, non-numbers, etc.
+		
         var $target = $(e.target);
-        var $costPerGram = $target.parent().next().find('input').val();
-        var $subTotal = $target.parent().next().next().find('.subtotal');
-        console.log($target.val(), $costPerGram, $subTotal.text());
-        $subTotal.text(($costPerGram * $target.val()).toFixed(2));
-        // TODO: update Sub_total for model based off of the data-formula attribute
-        console.log('sdfsdfsdfsdf',$(e.target).data('formulas'));
-        
+		var id = $target.data('formula');
+		var item = this.collection.get(id);
+		var costPerGram =  parseFloat(item.get('costPerGram'),10);
+		var grams = parseFloat($target.val(),10);
+		var subTotal = (grams * costPerGram).toFixed(2);
 
-    }
+		// replace these with validation
+		console.log('costPerGram', typeof costPerGram);
+		console.log('grams', typeof grams);
+		console.log('subTotal', typeof subTotal)
 
+		// unit test this ASAP
+		item.set({
+			'grams': grams,
+			'subTotal': subTotal
+		});
+    },
+	calculateTotal: function(e) {
+	// all all subtotals from models
+	
+		console.log($(e.target))
+        var total = 0;
+		
+		// add all subtotals together
+		this.collection.each(function(model){
+			total += parseFloat(model.get('subTotal'),10);
+		});
+        console.log('calculated total', total);
+		//$(e.target).parent().parent().fadeOut(1230)
+
+    },
+	formulaOptions: function() {
+	//
+		
+	}
 });
