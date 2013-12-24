@@ -1,12 +1,19 @@
 var ResultTable = Backbone.View.extend({
+    limit: 30,
     collection: new ChosenFormulas(),
     events: {
         'change input.grams': 'calculateSubtotal',
         'click button.deleteItemBtn': 'removeItem',
-        'click button#calculateTotal': 'calculateTotal'
+        'click button#calculateTotal': 'calculateTotal',
+        'change:grams': 'enableCalculate'
     },
     initialize: function() {
         this.createTypeAhead();
+        console.log('this.collection', this.collection)
+//        this.listenTo(this.collection.models, 'set', 'enableCalculate');
+    },
+    enableCalculate: function() {
+        alert('sdf')
 
     },
     render: function() {
@@ -15,7 +22,7 @@ var ResultTable = Backbone.View.extend({
             $('#formulas-chosen').html(_.template($('#result-template').html(),
             {formulas: view.collection.models})))
             .then(function() {
-            view.setElement($("#resultTable"));
+            view.setElement($("#resultContainer"));
         });
         return this;
     },
@@ -28,11 +35,22 @@ var ResultTable = Backbone.View.extend({
     createTypeAhead: function() {
         var self = this;
         var PinyinLookup = Backbone.Typeahead.extend({
-            template: $('#typeahead').html()
+            template: $('#typeahead').html(),
+            events: {
+//                'keydown input': 'a'
+
+            },
+            a: function(e) {
+                if (e.keyCode === 40) {
+                    console.log(this)
+                    this.searchInput();
+                }
+            }
         });
         var pinyinLookup = new PinyinLookup({
             collection: new Formulas(),
             key: 'pinyin',
+            limit: 30,
             itemTemplate: '<a><strong><%- pinyin %></strong> (<%- common_name %>) <%- concentration %> </a>'
         });
         console.log(this, pinyinLookup);
@@ -63,11 +81,6 @@ var ResultTable = Backbone.View.extend({
         var costPerGram = parseFloat(item.get('costPerGram'), 10);
         var grams = parseFloat($target.val(), 10);
         var subTotal = (grams * costPerGram);
-        //console.log(typeof sub.toFixed(2));
-        //return sub.toFixed(2);            
-        //}());
-
-
 
         // replace these with validation
         console.log('costPerGram', typeof costPerGram);
@@ -92,10 +105,6 @@ var ResultTable = Backbone.View.extend({
         });
         console.log('calculated total', total);
         $(e.target).slideUp(530)
-//        $(e.target).parent().parent().parent().parent()
-
-
-
     },
     formulaOptions: function() {
         //
