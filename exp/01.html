@@ -7,6 +7,8 @@
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
+        
+        
         <div class="container">
             <h1>Formulas</h1>
             <div id="pinyinSearch"></div>
@@ -14,12 +16,17 @@
             <div id="formulas-chosen"></div>
             <hr />
             <div id="formulas-all"></div>
+            <div id="calculationForm"></div>
         </div>
+        
+        
+        
         <!-- app dependencies -->
         <script src="app/lib/jquery-1.10.2.js"></script>
         <script src="app/lib/underscore.js"></script>
         <script src="app/lib/backbone.js"></script>
         <script src="app/lib/backbone.typeahead.js"></script>        
+        <script src="app/lib/jquery.transit.min.js"></script>
         <!-- Models -->
         <script src="app/models/Formula.js"></script>
         <!-- Collections -->
@@ -28,6 +35,7 @@
         <!-- Views -->
         <script src="app/views/FormulaTable.js"></script>
         <script src="app/views/ResultTable.js"></script>
+        <script src="app/views/CalculationForm.js"></script>
 
         <!-- Main function -->
         <script src="app/main.js"></script>
@@ -110,6 +118,40 @@
             </table>
         </script>        
         
+        
+        <script type="text/template" id="calculation-form" >
+            <div id="checkout" style="width:200px; float: right;">
+            <form role="form">
+                <div class="form-group">
+                    <label for="checkoutSubTotal">Subtotal:</label>
+                    <input type="text" class="form-control" id="checkoutSubTotal">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Shipping</label>
+                    <select class="form-control" id="shipping">
+                        <option>Free</option>
+                        <option>USPS</option>
+                        <option>UPS</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="discount">Discount</label>
+                    <select>
+                        <option>10% You Pay</option>
+                        <option>15% Client Pays</option>
+                    </select>
+                    <p class="help-block">Example block-level help text here.</p>
+                </div>
+                <div class="checkbox">
+                    <label>
+                    <input type="checkbox"> Check me out
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            </div>
+        </script>
+            
         
         
     </body>

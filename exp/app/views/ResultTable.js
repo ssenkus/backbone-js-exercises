@@ -5,6 +5,20 @@ var ResultTable = Backbone.View.extend({
         'click button.deleteItemBtn': 'removeItem',
         'click button#calculateTotal': 'calculateTotal'
     },
+    initialize: function() {
+        this.createTypeAhead();
+
+    },
+    render: function() {
+        var view = this;
+        $.when(
+            $('#formulas-chosen').html(_.template($('#result-template').html(),
+            {formulas: view.collection.models})))
+            .then(function() {
+            view.setElement($("#resultTable"));
+        });
+        return this;
+    },
     removeItem: function(e) {
         // remove the item from the collection
         // uses data-formula attribute for model id
@@ -37,19 +51,6 @@ var ResultTable = Backbone.View.extend({
             self.render();
         });
     },
-    initialize: function() {
-        this.createTypeAhead();
-
-    },
-    render: function() {
-        var view = this;
-        $.when(
-                $('#formulas-chosen').html(_.template($('#result-template').html(), {formulas: view.collection.models})))
-                .then(function() {
-            view.setElement($("#resultTable"));
-        });
-        return this;
-    },
     calculateSubtotal: function(e) {
         // calculate subtotal for model after user inputs grams
 
@@ -61,7 +62,12 @@ var ResultTable = Backbone.View.extend({
         var item = this.collection.get(id);
         var costPerGram = parseFloat(item.get('costPerGram'), 10);
         var grams = parseFloat($target.val(), 10);
-        var subTotal = (grams * costPerGram).toFixed(2);
+        var subTotal = (grams * costPerGram);
+        //console.log(typeof sub.toFixed(2));
+        //return sub.toFixed(2);            
+        //}());
+
+
 
         // replace these with validation
         console.log('costPerGram', typeof costPerGram);
@@ -85,7 +91,10 @@ var ResultTable = Backbone.View.extend({
             total += parseFloat(model.get('subTotal'), 10);
         });
         console.log('calculated total', total);
-        //$(e.target).parent().parent().fadeOut(1230)
+        $(e.target).slideUp(530)
+//        $(e.target).parent().parent().parent().parent()
+
+
 
     },
     formulaOptions: function() {
