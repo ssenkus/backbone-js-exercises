@@ -5,18 +5,52 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">        
         <title>Title</title>
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+        <style>
+            .typeahead.dropdown-menu {
+                border: none;
+                padding: 0;
+                width: 100%;
+            }
+            .typeahead.dropdown-menu li {
+                width: 50%;
+                float:left;
+                padding: 2px;
+            }
+            .typeahead.dropdown-menu li a {
+                display: block;
+                
+            }
+
+            .typeahead.dropdown-menu li a:hover, .typeahead.dropdown-menu li a:focus     {
+                display: block;
+                background-color: #39f;
+                color: #fff;
+                text-shadow: -1px 1px 0px #000;
+            }            
+            
+        </style>
     </head>
     <body>
         
         
         <div class="container">
-            <h1>Formulas</h1>
-            <div id="pinyinSearch"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Formulas</h1>
+                </div>
+                <div class="col-md-6" id="helpBox"></div>
+            </div>
             <hr />
-            <div id="formulas-chosen"></div>
-            <hr />
-            <div id="formulas-all"></div>
-            <div id="calculationForm"></div>
+            <div class="row">
+                
+                <div class="col-md-12" id="pinyinSearch"></div>
+            
+            </div>
+            <hr />            
+            <div class="row">
+                <div id="formulas-chosen"></div>
+                <div id="calculationForm"></div>
+            </div>
         </div>
         
         
@@ -36,19 +70,35 @@
         <script src="app/views/FormulaTable.js"></script>
         <script src="app/views/ResultTable.js"></script>
         <script src="app/views/CalculationForm.js"></script>
-
+        <script src="app/views/HelpBox.js"></script>
         <!-- Main function -->
         <script src="app/main.js"></script>
 
         <script type="text/template" id="typeahead">
             <form class="form-inline">
-                <div class="form-group">
-            <label for="productSearch">Product Search</label>
-            <input name="productSearch" type="text" class="form-control" placeholder="Search" />
-            <button type="button" id="addFormulaItem" class="btn btn-primary">Add</button>
-            <ul style="width: 800px;" class="typeahead dropdown-menu"></ul>
+                <div class="form-group col-md-4" >
+                    <label for="productSearch">Search</label>
+                    <input name="productSearch" type="text" class="form-control input-sm" autocomplete="off" placeholder="Search" />
+                </div>
+                <div class="form-group col-md-4">    
+                    <label for="searchBy">Search by:</label>
+                    <select id="searchBy" name="searchBy" class="form-control input-sm">
+                        <option value="pinyin">Pinyin</option>
+                        <option value="common_name">Common name</option>
+                        <option value="brand">Brand</option>
+                    </select>
+                </div>
+                <div class="form-group">                        
+                    <button type="button" id="addFormulaItem" class="btn btn-primary">Add</button>
+                    <ul class="typeahead dropdown-menu"></ul>
                 </div>
             </form>
+        </script>
+        
+        <script type="text/template" id="help-box-template">
+            <div id="helpBoxContainer">
+                <h3>Hello World</h3>
+            </div>
         </script>
 
         <script type="text/template" id="formula-template">
@@ -72,8 +122,8 @@
                         <td><%= formula.get('common_name') %></td>
                         <td><%= formula.get('brand_name') %></td>
                         <td><%= formula.get('concentration') %></td>
+                        <td><input class="form-control" type="text" disabled="disabled" value="<%= formula.get('costPerGram') %>" /></td>                        
                         <td><input class="form-control grams" type="range" min="0" step="0.01" max="20" value="<%= formula.get('grams') %>" /></td>
-                        <td><input class="form-control" type="text" disabled="disabled" value="<%= formula.get('costPerGram') %>" /></td>
                         <td><span class="subtotal"><%= formula.get('subTotal') %></span></td>
                         <td><button type="button" class="btn btn-danger">Delete</button></td>
                     </tr>
@@ -83,72 +133,74 @@
         </script>
         
         <script type="text/template" id="result-template">
-            <table id="resultTable" class="table table-striped table-bordered table-condensed">
-                <thead>
-                    <tr>
-                        <th class="col-sm-3">Pinyin</th>
-                        <th>Common Name</th>
-                        <th>Brand</th>
-                        <th>Concentration</th>
-                        <th >Grams</th>
-                        <th>Cost/Gram</th>
-                        <th>Subtotal</th>
-                        <th>ACTIONS</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% _.each(formulas, function(formula) { %>
-                    <tr>
-                        <td><%= formula.get('pinyin') %></td>
-                        <td><%= formula.get('common_name') %></td>
-                        <td><%= formula.get('brand_name') %></td>
-                        <td><%= formula.get('concentration') %></td>
-                        <td><input data-formula="<%- formula.get('id') %>" class="form-control grams" value="<%= formula.get('grams') %>" /></td>
-                        <td><input class="form-control" type="text" disabled="disabled" value="<%= formula.get('costPerGram') %>" /></td>
-                        <td><span data-formula="<%- formula.get('id') %>" class="subtotal"><%= formula.get('subTotal') %></span></td>
-                        <td><button data-formula="<%- formula.get('id') %>" type="button" class="deleteItemBtn btn btn-danger">Delete</button></td>
-                    </tr>
-                    <% }); %>  
-                    <tr>
-                        <td colspan="8">
-                            <button style="float: right; display: block;" id="calculateTotal" class="btn btn-primary">Calculate</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="resultContainer" class="row">
+                <table id="resultTable" class="table table-striped table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-3">Pinyin</th>
+                            <th class="col-sm-3">Common Name</th>
+                            <th class="col-sm-3">Brand</th>
+                            <th>Concentration</th>
+                            <th>Grams</th>
+                            <th>Cost/Gram</th>
+                            <th>Subtotal</th>
+                            <th>ACTIONS</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% _.each(formulas, function(formula) { %>
+                        <tr>
+                            <td><%= formula.get('pinyin') %></td>
+                            <td><%= formula.get('common_name') %></td>
+                            <td><%= formula.get('brand_name') %></td>
+                            <td><%= formula.get('concentration') %></td>
+                            <td><input data-formula="<%- formula.get('id') %>" class="form-control grams" value="<%= formula.get('grams') %>" /></td>
+                            <td><input class="form-control" type="text" disabled="disabled" value="<%= formula.get('costPerGram') %>" /></td>
+                            <td><span data-formula="<%- formula.get('id') %>" class="subtotal"><%= formula.get('subTotal') %></span></td>
+                            <td><button data-formula="<%- formula.get('id') %>" type="button" class="deleteItemBtn btn btn-danger">Delete</button></td>
+                        </tr>
+                        <% }); %>  
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <button style="margin: 20px; float: right; display: block;" id="calculateTotal" class="btn btn-primary">Calculate</button>
+                </div>
+            </div>
         </script>        
         
         
         <script type="text/template" id="calculation-form" >
-            <div id="checkout" style="width:200px; float: right;">
-            <form role="form">
-                <div class="form-group">
-                    <label for="checkoutSubTotal">Subtotal:</label>
-                    <input type="text" class="form-control" id="checkoutSubTotal">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Shipping</label>
-                    <select class="form-control" id="shipping">
-                        <option>Free</option>
-                        <option>USPS</option>
-                        <option>UPS</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="discount">Discount</label>
-                    <select>
-                        <option>10% You Pay</option>
-                        <option>15% Client Pays</option>
-                    </select>
-                    <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="checkbox">
-                    <label>
-                    <input type="checkbox"> Check me out
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+            <div id="checkout" style="width:200px; float: right; clear:both;">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="checkoutSubTotal">Subtotal:</label>
+                        <input type="text" class="form-control" id="checkoutSubTotal">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Shipping</label>
+                        <select class="form-control" id="shipping">
+                            <option>Free</option>
+                            <option>USPS</option>
+                            <option>UPS</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="discount">Discount</label>
+                        <select>
+                            <option>10% You Pay</option>
+                            <option>15% Client Pays</option>
+                        </select>
+                        <p class="help-block">Example block-level help text here.</p>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox"> Check me out
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
             </div>
         </script>
             

@@ -1,5 +1,4 @@
 var ResultTable = Backbone.View.extend({
-    limit: 30,
     collection: new ChosenFormulas(),
     events: {
         'change input.grams': 'calculateSubtotal',
@@ -47,11 +46,14 @@ var ResultTable = Backbone.View.extend({
                 }
             }
         });
+
+        var key = 'pinyin';
+        //      var tmpl = '<a><strong><%- ' + key + ' %></strong></a>'
         var pinyinLookup = new PinyinLookup({
             collection: new Formulas(),
-            key: 'pinyin',
+            key: key,
             limit: 30,
-            itemTemplate: '<a><strong><%- pinyin %></strong> (<%- common_name %>) <%- concentration %> </a>'
+            itemTemplate: '<a><strong><%- ' + key + ' %></strong></a>'
         });
         console.log(this, pinyinLookup);
         pinyinLookup.setElement('#pinyinSearch').render();
@@ -64,10 +66,17 @@ var ResultTable = Backbone.View.extend({
             self.collection.add(model);
             self.render();
         });
+        pinyinLookup.$('#searchBy').on('change', function() {
+            var newSearchBy = $(this).val();
+            pinyinLookup.options.key = newSearchBy;
+
+        });
 
         pinyinLookup.collection.fetch().done(function() {
             self.render();
         });
+
+        window.p = pinyinLookup;
     },
     calculateSubtotal: function(e) {
         // calculate subtotal for model after user inputs grams

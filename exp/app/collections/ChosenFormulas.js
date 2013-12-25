@@ -1,3 +1,7 @@
 var ChosenFormulas = Backbone.Collection.extend({
-    model: Formula
+    model: Formula,
+    calculateTotal: function() {
+        console.log(this)
+        
+    }
 });

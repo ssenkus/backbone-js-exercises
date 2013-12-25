@@ -7,5 +7,9 @@ var Formula = Backbone.Model.extend({
         grams: 0,
         costPerGram: 0,
         subTotal: 0
+    },
+    validate: function() {
+        
+        
     }
 });
