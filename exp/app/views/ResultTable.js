@@ -113,7 +113,11 @@ var ResultTable = Backbone.View.extend({
             total += parseFloat(model.get('subTotal'), 10);
         });
         console.log('calculated total', total);
-        $(e.target).slideUp(530)
+        $('#pinyinSearch, hr').slideUp(500);
+        $(e.target).slideUp(530, function() {
+            var calc = new CalculationForm({ subTotal: total });
+
+        })
     },
     formulaOptions: function() {
         //
