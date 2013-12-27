@@ -18,7 +18,6 @@ var CalculationForm = Backbone.View.extend({
             view.setElement($("#resultTable"));
         });
         return this;
-
     }
 
 

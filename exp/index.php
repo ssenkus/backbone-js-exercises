@@ -6,28 +6,32 @@
         <title>Title</title>
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
         <style>
-            .typeahead.dropdown-menu {
+            .dropdown-menu {
                 border: none;
                 padding: 0;
                 width: 100%;
             }
-            .typeahead.dropdown-menu li {
+            .dropdown-menu li {
                 width: 50%;
                 float:left;
                 padding: 2px;
             }
-            .typeahead.dropdown-menu li a {
+            .dropdown-menu li a {
                 display: block;
                 
             }
 
-            .typeahead.dropdown-menu li a:hover, .typeahead.dropdown-menu li a:focus     {
+            .dropdown-menu li a:hover, .dropdown-menu li a:focus     {
                 display: block;
-                background-color: #39f;
+                background-color: rgb(50, 118, 177);
                 color: #fff;
                 text-shadow: -1px 1px 0px #000;
             }            
-            
+            #searchBy {
+                display: block;
+                
+            }
+
         </style>
     </head>
     <body>
@@ -42,9 +46,7 @@
             </div>
             <hr />
             <div class="row">
-                
-                <div class="col-md-12" id="pinyinSearch"></div>
-            
+                <div class="col-md-12" id="itemSearch"></div>
             </div>
             <hr />            
             <div class="row">
@@ -63,11 +65,12 @@
         <script src="app/lib/jquery.transit.min.js"></script>
         <!-- Models -->
         <script src="app/models/Formula.js"></script>
+        <script src="app/models/HelpMessage.js"></script>
         <!-- Collections -->
         <script src="app/collections/ChosenFormulas.js"></script>
         <script src="app/collections/Formulas.js"></script>
         <!-- Views -->
-        <script src="app/views/FormulaTable.js"></script>
+        <script src="app/views/ItemLookup.js"></script>
         <script src="app/views/ResultTable.js"></script>
         <script src="app/views/CalculationForm.js"></script>
         <script src="app/views/HelpBox.js"></script>
@@ -78,19 +81,15 @@
             <form class="form-inline">
                 <div class="form-group col-md-4" >
                     <label for="productSearch">Search</label>
-                    <input name="productSearch" type="text" class="form-control input-sm" autocomplete="off" placeholder="Search" />
+                    <input name="productSearch" type="text" class="form-control" autocomplete="off" placeholder="Find results easy with Autocomplete (Type a letter)" />
                 </div>
                 <div class="form-group col-md-4">    
                     <label for="searchBy">Search by:</label>
-                    <select id="searchBy" name="searchBy" class="form-control input-sm">
+                    <select id="searchBy" name="searchBy" class="form-control">
                         <option value="pinyin">Pinyin</option>
                         <option value="common_name">Common name</option>
                         <option value="brand">Brand</option>
                     </select>
-                </div>
-                <div class="form-group">                        
-                    <button type="button" id="addFormulaItem" class="btn btn-primary">Add</button>
-                    
                 </div>
             </form>
             <ul class="typeahead dropdown-menu"></ul>
@@ -98,7 +97,8 @@
         
         <script type="text/template" id="help-box-template">
             <div id="helpBoxContainer">
-                <h3>Hello World</h3>
+                <h3><%- helpMessage.get('title') %></h3>
+                <p><%- helpMessage.get('message') %></p>
             </div>
         </script>
 
@@ -106,9 +106,9 @@
             <table class="formula-table table table-striped table-bordered table-condensed">
                 <thead>
                     <tr>
-                        <th>Pinyin</th>
-                        <th>Common Name</th>
-                        <th>Brand</th>
+                        <th class="col-md-5">Pinyin</th>
+                        <th class="">Common Name</th>
+                        <th class="">Brand</th>
                         <th>Concentration</th>
                         <th class="col-sm-5">Grams</th>
                         <th>Cost/Gram</th>
@@ -138,9 +138,9 @@
                 <table id="resultTable" class="table table-striped table-bordered table-condensed">
                     <thead>
                         <tr>
-                            <th class="col-sm-3">Pinyin</th>
-                            <th class="col-sm-3">Common Name</th>
-                            <th class="col-sm-3">Brand</th>
+                            <th class="col-sm-2">Pinyin</th>
+                            <th class="col-md-2">Common Name</th>
+                            <th class="col-md-2">Brand</th>
                             <th>Concentration</th>
                             <th>Grams</th>
                             <th>Cost/Gram</th>

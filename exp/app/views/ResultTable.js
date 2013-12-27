@@ -4,16 +4,11 @@ var ResultTable = Backbone.View.extend({
         'change input.grams': 'calculateSubtotal',
         'click button.deleteItemBtn': 'removeItem',
         'click button#calculateTotal': 'calculateTotal',
-        'change:grams': 'enableCalculate'
     },
     initialize: function() {
-        this.createTypeAhead();
-        console.log('this.collection', this.collection)
-//        this.listenTo(this.collection.models, 'set', 'enableCalculate');
-    },
-    enableCalculate: function() {
-        alert('sdf')
-
+        this.collection.bind('add', this.render, this)
+        this.collection.bind('set', this.render, this)
+        this.render();
     },
     render: function() {
         var view = this;
@@ -31,53 +26,6 @@ var ResultTable = Backbone.View.extend({
         this.collection.remove({id: $(e.target).data('formula')})
         $(e.target).parent().parent().fadeOut(200);
     },
-    createTypeAhead: function() {
-        var self = this;
-        var PinyinLookup = Backbone.Typeahead.extend({
-            template: $('#typeahead').html(),
-            events: {
-//                'keydown input': 'a'
-
-            },
-            a: function(e) {
-                if (e.keyCode === 40) {
-                    console.log(this)
-                    this.searchInput();
-                }
-            }
-        });
-
-        var key = 'pinyin';
-        //      var tmpl = '<a><strong><%- ' + key + ' %></strong></a>'
-        var pinyinLookup = new PinyinLookup({
-            collection: new Formulas(),
-            key: key,
-            limit: 30,
-            itemTemplate: '<a><strong><%- ' + key + ' %></strong></a>'
-        });
-        console.log(this, pinyinLookup);
-        pinyinLookup.setElement('#pinyinSearch').render();
-
-        this.listenTo(pinyinLookup.collection, 'change', this.render);
-
-        pinyinLookup.on('selected', function(model) {
-            this.$el.find('input[name=productSearch]').val('');
-            console.log('The user has selected:', model.id);
-            self.collection.add(model);
-            self.render();
-        });
-        pinyinLookup.$('#searchBy').on('change', function() {
-            var newSearchBy = $(this).val();
-            pinyinLookup.options.key = newSearchBy;
-
-        });
-
-        pinyinLookup.collection.fetch().done(function() {
-            self.render();
-        });
-
-        window.p = pinyinLookup;
-    },
     calculateSubtotal: function(e) {
         // calculate subtotal for model after user inputs grams
 
@@ -92,15 +40,17 @@ var ResultTable = Backbone.View.extend({
         var subTotal = (grams * costPerGram);
 
         // replace these with validation
-        console.log('costPerGram', typeof costPerGram);
-        console.log('grams', typeof grams);
-        console.log('subTotal', typeof subTotal)
+        console.log('costPerGram', typeof costPerGram, costPerGram);
+        console.log('grams', typeof grams, grams);
+        console.log('subTotal', typeof subTotal, subTotal)
 
         // unit test this ASAP
         item.set({
             'grams': grams,
             'subTotal': subTotal
         });
+        
+        this.render();
     },
     calculateTotal: function(e) {
         // all all subtotals from models
@@ -115,12 +65,8 @@ var ResultTable = Backbone.View.extend({
         console.log('calculated total', total);
         $('#pinyinSearch, hr').slideUp(500);
         $(e.target).slideUp(530, function() {
-            var calc = new CalculationForm({ subTotal: total });
+            app.calc = new CalculationForm({subTotal: total});
 
         })
-    },
-    formulaOptions: function() {
-        //
-
     }
 });

@@ -1,9 +1,33 @@
+var app = {};
 $(document).ready(function() {
 
-    var chosenTable = new ResultTable();
-    var help = new HelpBox();
+    app.itemLookup = new ItemLookup({
+        collection: new Formulas(),
+        key: 'pinyin',  // keep string for now
+        limit: 20,
+        itemTemplate: '<a><strong><%-  pinyin  %></strong></a>'
+    });
 
-    
+    app.chosenTable = new ResultTable();
+    app.helpMessage = new HelpMessage();
+    app.helpBox = new HelpBox({model: app.helpMessage});
+
+
+    app.itemLookup.on('selected', function(model) {
+        // update collection, updates view
+        app.chosenTable.collection.add(model);
+        // help message placeholder
+        app.helpMessage.set({
+            'title': model.get('pinyin'),
+            message: model.get('common_name')
+        });
+        
+        // clear input
+        this.$el.find('input').val('');
+        console.log('The user has selected:', model.id);
+    });
+
+
 });
 
 
