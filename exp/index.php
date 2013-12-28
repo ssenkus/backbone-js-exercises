@@ -177,30 +177,22 @@
                 <form role="form">
                     <div class="form-group">
                         <label for="checkoutSubTotal">Subtotal:</label>
-                        <input type="text" class="form-control" value="<%= subTotal %>" id="checkoutSubTotal">
+                        <input type="text" disabled="disabled" class="form-control" value="<%= subTotal %>" id="checkoutSubTotal">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Shipping</label>
-                        <select class="form-control" id="shipping">
+                        <label for="shipping">Shipping</label>
+                        <select class="form-control" id="shipping" name="shipping">
                             <option>Free</option>
-                            <option>USPS</option>
-                            <option>UPS</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="discount">Discount</label>
-                        <select>
+                        <select class="form-control" name="discount">
                             <option>10% You Pay</option>
                             <option>15% Client Pays</option>
                         </select>
-                        <p class="help-block">Example block-level help text here.</p>
                     </div>
-                    <div class="checkbox">
-                        <label>
-                        <input type="checkbox"> Check me out
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
                 </form>
             </div>
         </script>
