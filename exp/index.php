@@ -193,8 +193,10 @@
                             <option>15% Client Pays</option>
                         </select>
                     </div>
+                    <button class="btn btn-warning" type="button" id="recalc">Re-calculate?</button>
                     <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
                 </form>
+                
         </script>
             
         
