@@ -1,6 +1,7 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
+var FormulaTotal = Backbone.Model.extend({
+    defaults: {
+        subTotal: -1,
+        shipping: 'none selected'
+    }
+    
+});

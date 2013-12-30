@@ -1,4 +1,4 @@
-var Formula = Backbone.Model.extend({
+var FormulaItem = Backbone.Model.extend({
     defaults: {
         pinyin: 'default',
         common_name: 'default',

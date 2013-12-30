@@ -9,11 +9,11 @@ var HelpBox = Backbone.View.extend({
         'click': 'updateContents'
     },
     render: function() {
-        var view = this;
+        var self = this;
         $.when(
             $('#helpBox').html(_.template($('#help-box-template').html(), {helpMessage: this.model})))
             .then(function() {
-            view.setElement($("#helpBoxContainer"));
+            self.setElement($("#helpBoxContainer"));
         });
         return this;
 

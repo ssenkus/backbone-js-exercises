@@ -64,11 +64,12 @@
         <script src="app/lib/backbone.typeahead.js"></script>        
         <script src="app/lib/jquery.transit.min.js"></script>
         <!-- Models -->
-        <script src="app/models/Formula.js"></script>
+        <script src="app/models/FormulaItem.js"></script>
+        <script src="app/models/FormulaTotal.js"></script>
         <script src="app/models/HelpMessage.js"></script>
         <!-- Collections -->
         <script src="app/collections/ChosenFormulas.js"></script>
-        <script src="app/collections/Formulas.js"></script>
+        <script src="app/collections/FormulaItems.js"></script>
         <!-- Views -->
         <script src="app/views/ItemLookup.js"></script>
         <script src="app/views/ResultTable.js"></script>
@@ -97,8 +98,8 @@
         
         <script type="text/template" id="help-box-template">
             <div id="helpBoxContainer">
-                <h3><%- helpMessage.get('title') %></h3>
-                <p><%- helpMessage.get('message') %></p>
+                <h3><%= helpMessage.get('title') %></h3>
+                <p><%= helpMessage.get('message') %></p>
             </div>
         </script>
 
@@ -173,8 +174,7 @@
         
         
         <script type="text/template" id="calculation-form" >
-            <div id="checkout" style="width:200px; float: right; clear:both;">
-                <form role="form">
+                <form role="form"  id="checkout" style="width:200px; float: right; clear:both;">
                     <div class="form-group">
                         <label for="checkoutSubTotal">Subtotal:</label>
                         <input type="text" disabled="disabled" class="form-control" value="<%= subTotal %>" id="checkoutSubTotal">
@@ -194,7 +194,6 @@
                     </div>
                     <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
                 </form>
-            </div>
         </script>
             
         

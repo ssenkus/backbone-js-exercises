@@ -18,8 +18,8 @@ $(document).ready(function() {
         app.chosenTable.collection.add(model);
         // help message placeholder
         app.helpMessage.set({
-            'title': model.get('pinyin'),
-            message: model.get('common_name')
+            title: model.get('pinyin'),
+            message: model.get('common_name') + '<br /> sdlfkjsdlfkjsdf'
         });
         
         // clear input

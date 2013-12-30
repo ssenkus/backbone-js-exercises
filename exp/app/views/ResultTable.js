@@ -57,7 +57,7 @@ var ResultTable = Backbone.View.extend({
 
         console.log($(e.target))
         var total = 0;
-
+        var self = this;
         // add all subtotals together
         this.collection.each(function(model) {
             total += parseFloat(model.get('subTotal'), 10);
@@ -65,7 +65,7 @@ var ResultTable = Backbone.View.extend({
         console.log('calculated total', total);
         $('#itemSearch, hr').slideUp(500);
         $(e.target).slideUp(530, function() {
-            app.calc = new CalculationForm({subTotal: total});
+            app.calc = new CalculationForm({subTotal: total, items: self.collection.toJSON()});
 
         })
     }
