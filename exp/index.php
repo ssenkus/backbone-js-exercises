@@ -182,7 +182,8 @@
                     <div class="form-group">
                         <label for="shipping">Shipping</label>
                         <select class="form-control" id="shipping" name="shipping">
-                            <option>Free</option>
+                            <option value="free">Free</option>
+                            <option value="not free!">Not Free</option>
                         </select>
                     </div>
                     <div class="form-group">
