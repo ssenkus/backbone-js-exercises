@@ -5,8 +5,14 @@ var CalculationForm = Backbone.View.extend({
         'change input': 'loginput',
         'change select[name=shipping]': 'setShipping',
         'change select[name=discount]': 'setDiscount',
-        'click #submitBtn': 'formulaSubmit'
+        'click #submitBtn': 'formulaSubmit',
+        'click #recalc': 'recalculate'
     },
+       recalculate: function() {
+        $('#itemSearch, hr').slideDown(500);
+        
+        
+        },
     setShipping: function(e) {
 
         this.model.set({shipping: this.$('select[name=shipping]').val()})

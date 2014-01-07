@@ -18,14 +18,17 @@ $(document).ready(function() {
         app.chosenTable.collection.add(model);
         // help message placeholder
         app.helpMessage.set({
-            title: model.get('pinyin'),
-            message: model.get('common_name') + '<br /> sdlfkjsdlfkjsdf'
+            title:  'Create Your Formula', // model.get('pinyin'),
+            message: 'Select another item, or start entering grams' //model.get('common_name') + '<br /> sdlfkjsdlfkjsdf'
         });
         
         // clear input
         this.$el.find('input').val('');
         console.log('The user has selected:', model.id);
     });
+
+
+    //app.
 
 
 });
