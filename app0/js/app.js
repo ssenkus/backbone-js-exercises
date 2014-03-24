@@ -1,67 +1,62 @@
-var Quote = Backbone.Model.extend({
-    url: function() {
-        return 'http://www.iheartquotes.com/api/v1/random?format=json';
-    },
-    defaults: {
-        link: 'default link',
-        quote: 'default quote',
-        source: 'default source'
-    },
-    initialize: function() {
-    },
-    validate: function() {
-    },
-// override backbone synch to force a jsonp call
-    sync: function(method, model, options) {
-// Default JSON-request options.
-        var params = _.extend({
-            type: 'GET',
-            dataType: 'jsonp',
-            url: model.url(),
-            jsonp: 'jsonp',//"jsonpCallback", // the api requires the jsonp callback name to be this exact name
-            processData: false
+$(document).ready(function() {
+
+    //$.ajax({url: }).success();
+
+    var Quote = Backbone.Model.extend({
+        url: 'apis/quote/quote.php'
+            ,
+        defaults: {
+            link: 'default link',
+            quote: 'default quote',
+            source: 'default source'
         },
-        options);
+        initialize: function() {
+        },
+        validate: function() {
+        },
+// override backbone synch to force a jsonp call
+        sync: function(method, model, options) {
 
-// Make the request.
-        return $.ajax(params);
-    },
-    parse: function(response) {
-// parse can be invoked for fetch and save, in case of save it can be undefined so check before using
-        if (response) {
-            if (response.success) {
-                    alert('sdf');
-// here you write code to parse the model data returned and return it as a js object
-// of attributeName: attributeValue
-                return {
-                    link: response.link,
-                    source: response.source,
-                    quote: response.quote
-                }; 
-            }
-        }
-    }
+            console.log('sync', method, model, options)
+            var params = _.extend({
+                type: 'GET',
+                dataType: 'json',
+                url: this.url,
+            },
+                options);
+
+            return $.ajax(params);
+        },
+    });
+
+
+
+
+    var QuoteView = Backbone.View.extend({
+        initialize: function() {
+            var that = this;
+            this.model = new Quote();
+            this.model.fetch().then(function() {
+                that.render();
+            });
+        },
+        events: {
+            'click button': 'updateQuote'
+
+        },
+        updateQuote: function() {
+            var that = this;
+            this.model = new Quote();
+            this.model.fetch().then(function() {
+                that.render();
+            });
+            },
+            render: function() {
+            var template = _.template($('#quoteViewTemplate').html(), {quote: this.model});
+            this.$el.html(template)
+
+        },
+    });
+    var quoteView = new QuoteView({el: $('#quoteView')});
 
 });
-
-var quote = new Quote;
-quote.fetch({dataType: "jsonp"});
-console.log(quote);
-
-
-/*
-var Quotes = Backbone.Collection.extend({
-    model: Quote,
-    url: function() {
-        return 'http://api.theysaidso.com/qod.json?category=management';
-    }
-
-});
-var quotes = new Quotes;
-quotes.fetch({dataType: "jsonp"});
-quotes.each(function(i) {
-    console.log(i)
-
-});
-
-*/

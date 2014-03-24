@@ -9,7 +9,14 @@
     <body>
         <div class="container">
             <div class="row">
-                <div id="appView"></div>
+                 <script type="text/template" id="quoteViewTemplate">
+                     <%= quote.get('quote') %><br />
+                       
+                    <%= quote.get('link') %>  
+                            <br />
+                            <button>GET QUOTE</button>
+                 </script>
+                <div id="quoteView"></div>
 
             </div>
         </div> <!-- /container -->

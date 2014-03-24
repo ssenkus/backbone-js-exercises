@@ -27,7 +27,7 @@ $(document).ready(function() {
         console.log('The user has selected:', model.id);
     });
 
-
+    
     //app.
 
 
