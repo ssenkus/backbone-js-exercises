@@ -9,15 +9,14 @@
     <body>
         <div class="container">
             <div class="row">
-                 <script type="text/template" id="quoteViewTemplate">
-                     <%= quote.get('quote') %><br />
-                       
-                    <%= quote.get('link') %>  
-                            <br />
-                            <button>GET QUOTE</button>
-                 </script>
-                <div id="quoteView"></div>
-
+                <script type="text/template" id="quoteViewTemplate">
+                    <div style="border-radius: 14px; padding: 12px; word-break:none; float: none; margin: 0 auto; width: 50%; background-color: #eaeaea;"><%= quote.get('quote') %><hr />
+                    <a href="<%= quote.get('link') %>">Link</a>  
+                    <br />
+                    <button class="btn btn-warning">GET QUOTE</button>
+                    </div>
+                </script>
+                <pre style="height: 500px; text-align: center; background-color: #000;" id="quoteView"></pre>
             </div>
         </div> <!-- /container -->
 
