@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!-- CSS for FORM; Dynamically generated -->
+        <!--    <link href="css/form.css" rel="stylesheet" type="text/css" /> -->
+        <!-- -->
+        <!--  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
+        <link href="css/bootstrap.modal.css" rel="stylesheet" type="text/css" />
+        <link href="css/jquery.modal.css" rel="stylesheet" type="text/css" />
+        <link href="css/dlform.css" rel="stylesheet" type="text/css" />        
+        <link href="css/bootstrap2.css" rel="stylesheet" type="text/css" />
+        
+        
+        <style>
+            body {
+                /* text-align: center; */
+
+            }
+
+            /* placeholder styles for form; */
+            #requestinfo {
+                float: none!important;
+                margin: 10px auto!important;
+
+
+            }
+            #modal {
+                display: none; 
+            }
+            
+            .modal {
+                padding:0px;
+                overflow: visible!important;
+            }
+
+            .successimg {
+                position: relative;
+                display:none;
+            }
+            input, textarea, select {
+               width: 180px!important; 
+                
+            }
+            
+        </style>
+    </head>
+    <body>
+        <a class="btn btn-primary btn-large form_pop" href="http://www.graphicproducts.com/request-info.php"><i class="icon-infoBtn"></i>Request Info</a>
+        <script id="formTemplate_General" type="text/html">
+            <div id="requestinfo" class="form">
+                <div class="formHead">
+                    <h2>Contact Request</h2>
+                </div>
+                <form id="request_form" class="form-horizontal">
+                    <div data-editors="leadsource,sampletype,subject,type,form_from_http_host,from_http_host,comments_gp,Event_Type,EventSubType,captcha,success"></div>
+                    <div id="page1">
+                        <div data-fields="first_name,last_name,job_title,email,phone,company"></div>    
+                    </div>
+                    <div id="page2">
+                    <a href="#" id="back">Back</a>
+                    <div data-fields="employees,siccode,address1,city,country,state,zip,comments"></div>
+                    </div>
+                    <div id="form-submit" class="form-actions">
+                    <button type="button" id="page1Btn" class="btn btn-primary btn-large next">Continue</button>
+                    <button style="display:none" id="SubmitButton" class="btn btn-primary btn-large" type="submit" style="display: inline-block;">Request Guide</button>
+                    </div>
+                </form>
+            </div>
+
+        </script>
+        <div id="modal"></div>
+
+
+        <hr />
+        <!-- lib files -->
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone-forms/0.12.0/backbone-forms.min.js"></script>
+        
+        <!-- templates -->
+        <script src="templates/bootstrap3.js"></script> 
+
+        <!-- modal -->
+        <script src="js/jquery.modal.min.js"></script>
+
+        <!-- app files -->
+            <!-- model -->
+        <script src="js/Lead.js"></script>                
+            <!-- view --> 
+        <script src="js/FormView.js"></script>                
+        
+            <!-- main -->
+        <script src="js/bbform.js"></script>
+    </body>
+</html>
