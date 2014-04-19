@@ -75,7 +75,17 @@
         <script src="js/lib/underscore-min.js"></script>
         <script src="js/lib/backbone-min.js"></script>
         <script src="js/lib/backbone.marionette.js"></script>
-        <script src='js/mealplanner.js'></script>
-
+        
+        <script src="js/app.js"></script>
+        <script src="js/entities/Meal.js"></script>
+        
+        <script>
+            var meals = new MealPlanner.Entities.MealCollection([
+                { title: 'zxcvzcv', description: 'asdfadf'},
+                { title: 'qwer', description: 'qwerqwerqwer'},
+                { title: 'zxcvzcv', description: 'ghgkghjk'}
+            ]);
+            console.log(meals)
+        </script>
     </body>
 </html>
