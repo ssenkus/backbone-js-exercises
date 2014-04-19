@@ -3,8 +3,9 @@
     <head>
         <meta charset="utf-8">
         <title>hello-backbonejs</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="css/styles.css" />
-        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" />
+        
     </head>
     <body>
         <!-- Fixed navbar -->
