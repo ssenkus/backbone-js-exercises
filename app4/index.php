@@ -1,7 +1,12 @@
 <!doctype html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">        
+       
         <title>Backbone/Marionette basic setup with nested views</title>
+
         <link rel="stylesheet" href="css/bootstrap.css" />
         <style type="text/css">
             body {
@@ -77,15 +82,43 @@
         <script src="js/lib/backbone.marionette.js"></script>
         
         <script src="js/app.js"></script>
-        <script src="js/entities/Meal.js"></script>
+        <script src="js/entities/meal.js"></script>
         
         <script>
-            var meals = new MealPlanner.Entities.MealCollection([
-                { title: 'zxcvzcv', description: 'asdfadf'},
-                { title: 'qwer', description: 'qwerqwerqwer'},
-                { title: 'zxcvzcv', description: 'ghgkghjk'}
-            ]);
-            console.log(meals)
+
+            MealPlanner.MealItemView = Backbone.Marionette.ItemView.extend({
+                template: '#meal-template',
+                tagName: 'li',
+                events: {
+                    'click': 'doAlert'
+
+                },
+                doAlert: function() {
+                    alert(this.model.get('phoneNumber'))
+
+                }
+
+            });
+
+            MealPlanner.MealsView = Backbone.Marionette.CollectionView.extend({
+                tagName: 'ul',
+                itemView: MealPlanner.MealItemView
+            });
+
+            MealPlanner.on('initialize:after', function() {
+                console.log('after initialization');
+                var meals = MealPlanner.request('meal:entities');
+                var mealsListView = new MealPlanner.MealsView({
+                    collection: meals
+                });
+                MealPlanner.mainRegion.show(mealsListView);            
+            });            
+            
+            
+            
+            
+            
+            MealPlanner.start();
         </script>
     </body>
 </html>
