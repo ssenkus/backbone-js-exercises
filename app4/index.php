@@ -70,24 +70,30 @@
 
         <script type="text/template" id="meal-list">
             <thead>
-                <tr>
-                    <th>id</th>
-                    <th>title</th>
-                    <th>description</th>
-                    <th></th>
-                </tr>
+            <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>description</th>
+            <th></th>
+            </tr>
             </thead>
             <tbody></tbody>
         </script>
-        
-        
-        <script type="text/template" id="meal-template">
-           <td><%= id %></td>
-           <td><%= title %></td>
-           <td><%= description %></td>
-           <td><button class="deleteBtn btn btn-small btn-danger"><i class="icon-remove"></i>Delete</button></td>
-        </script>        
 
+
+        <script type="text/template" id="meal-template">
+            <td><%= id %></td>
+            <td><%= title %></td>
+            <td><%= description %></td>
+            <td>
+            <a href="#" class="btn btn-small js-show"><i class="icon-eye-open"></i>Show</a>
+            <button class="deleteBtn btn btn-small btn-danger"><i class="icon-remove"></i>Delete</button>
+            </td>
+        </script>        
+        <script type="text/template" id="meal-view">
+            <h1><%= title %> <%= description %></h1>
+            <p><strong>ID:</strong> <%= id %></p>
+        </script>
 
         <!-- The javascript libraries get included here (edited for brevity) -->
 
@@ -101,6 +107,9 @@
         <script src="js/entities/meal.js"></script>
         <script src="js/apps/meals/list/list_view.js"></script>
         <script src="js/apps/meals/list/list_controller.js"></script>
+        <script src="js/apps/meals/show/show_view.js"></script>
+        <script src="js/apps/meals/show/show_controller.js"></script>
+        
         <script>
             MealPlanner.start();
         </script>
