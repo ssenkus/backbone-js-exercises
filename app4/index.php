@@ -68,8 +68,18 @@
                 replaced by our app as soon as we start it.</p>
         </div>
 
+        <script type="text/template" id="meal-list">
+            <thead>
+                <tr>
+                    <th>id</th><th>title</th><th>description</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </script>
+        
+        
         <script type="text/template" id="meal-template">
-            <%= title %> <%= description %>
+           <td><%= id %></td><td><%= title %></td><td><%= description %></td>
         </script>        
 
 
