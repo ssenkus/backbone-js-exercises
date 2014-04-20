@@ -83,41 +83,15 @@
         
         <script src="js/app.js"></script>
         <script src="js/entities/meal.js"></script>
-        
+        <script src="js/apps/meals/list/list_view.js"></script>
+        <script src="js/apps/meals/list/list_controller.js"></script>
         <script>
-
-            MealPlanner.MealItemView = Backbone.Marionette.ItemView.extend({
-                template: '#meal-template',
-                tagName: 'li',
-                events: {
-                    'click': 'doAlert'
-
-                },
-                doAlert: function() {
-                    alert(this.model.get('phoneNumber'))
-
-                }
-
-            });
-
-            MealPlanner.MealsView = Backbone.Marionette.CollectionView.extend({
-                tagName: 'ul',
-                itemView: MealPlanner.MealItemView
-            });
 
             MealPlanner.on('initialize:after', function() {
                 console.log('after initialization');
-                var meals = MealPlanner.request('meal:entities');
-                var mealsListView = new MealPlanner.MealsView({
-                    collection: meals
-                });
-                MealPlanner.mainRegion.show(mealsListView);            
+                MealPlanner.MealsApp.List.Controller.listMeals();
             });            
-            
-            
-            
-            
-            
+
             MealPlanner.start();
         </script>
     </body>
