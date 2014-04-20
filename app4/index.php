@@ -71,7 +71,10 @@
         <script type="text/template" id="meal-list">
             <thead>
                 <tr>
-                    <th>id</th><th>title</th><th>description</th>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>description</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -79,7 +82,10 @@
         
         
         <script type="text/template" id="meal-template">
-           <td><%= id %></td><td><%= title %></td><td><%= description %></td>
+           <td><%= id %></td>
+           <td><%= title %></td>
+           <td><%= description %></td>
+           <td><button class="deleteBtn btn btn-small btn-danger"><i class="icon-remove"></i>Delete</button></td>
         </script>        
 
 

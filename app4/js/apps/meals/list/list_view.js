@@ -3,23 +3,19 @@ MealPlanner.module('MealsApp.List', function(List, MealsApp, Backbone, Marionett
         template: '#meal-template',
         tagName: 'tr',
         events: {
-            // by clicking this td...
+            
             'click td': 'highlightName',
-            // ... doAlert will get executed ...
-            'click': 'doAlert'
+            
+            'click button.deleteBtn': 'deleteClicked'
 
         },
         highlightName: function(e) {
-            e.preventDefault();
-            // ... unless we manually stop propagation ...
-            e.stopPropagation();
-            alert(this.$(e.currentTarget).text())
+            this.$el.toggleClass('warning')
         },
-        doAlert: function() {
-            // ... which makes sure the event doesn't bubble up
-            // and execute this function
-            alert('propagation!')
-
+        deleteClicked: function(e) {
+            e.stopPropagation();        
+            //this.model.collection.remove(this.model)
+            this.trigger('meal:delete', this.model);
         },    
     });
 
