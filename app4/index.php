@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">        
-       
+
         <title>Backbone/Marionette basic setup with nested views</title>
 
         <link rel="stylesheet" href="css/bootstrap.css" />
@@ -80,18 +80,12 @@
         <script src="js/lib/underscore-min.js"></script>
         <script src="js/lib/backbone-min.js"></script>
         <script src="js/lib/backbone.marionette.js"></script>
-        
+
         <script src="js/app.js"></script>
         <script src="js/entities/meal.js"></script>
         <script src="js/apps/meals/list/list_view.js"></script>
         <script src="js/apps/meals/list/list_controller.js"></script>
         <script>
-
-            MealPlanner.on('initialize:after', function() {
-                console.log('after initialization');
-                MealPlanner.MealsApp.List.Controller.listMeals();
-            });            
-
             MealPlanner.start();
         </script>
     </body>
