@@ -2,27 +2,32 @@ MealPlanner.module('MealsApp.List', function(List, MealPlanner, Backbone, Marion
 
     List.Controller = {
         listMeals: function() {
-            var meals = MealPlanner.request('meal:entities')
-            var mealsListView = new List.Meals({
-                collection: meals
+            var loadingView = new MealPlanner.Common.Views.Loading({
+                title: 'Loading Meals',
+                message: 'Please be patient, meals are on the way!'
+                
             });
+            MealPlanner.mainRegion.show(loadingView);
+            
+            var fetchingMeals = MealPlanner.request('meal:entities');
 
+            $.when(fetchingMeals).done(function(meals) {
+                var mealsListView = new List.Meals({
+                    collection: meals
+                });
 
-            mealsListView.on('itemview:meal:delete', function(childView, model) {
-                meals.remove(model)
+                mealsListView.on("itemview:meal:show", function(childView, model) {
+                    console.log("Received itemview:meal:show event on model ", model);
+                    MealPlanner.trigger('meal:show', model.get('id'));
+                });
 
+                mealsListView.on('itemview:meal:delete', function(childView, model) {
+                    model.destroy();
+                });
+
+                MealPlanner.mainRegion.show(mealsListView);
             });
-
-            mealsListView.on("itemview:meal:show", function(childView, model) {
-                console.log("Received itemview:meal:show event on model ", model)
-                MealPlanner.MealsApp.Show.Controller.showMeal(model);
-            });
-
-
-            MealPlanner.mainRegion.show(mealsListView);
         }
-
-
     };
 
 });

@@ -70,15 +70,45 @@
 
         <script type="text/template" id="meal-list">
             <thead>
-            <tr>
-            <th>id</th>
-            <th>title</th>
-            <th>description</th>
-            <th></th>
-            </tr>
+                <tr>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>description</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody></tbody>
         </script>
+
+
+        <script type="text/template" id="contact-form">
+                <h1>Edit <%= firstName %> <%= lastName %></h1>
+                <form>
+                <div class="control-group">
+                <label for="contact-title" class="control-label">
+                First name:</label>
+                <input id="contact-title" name="firstName"
+                type="text" value="<%= title %>"/>
+                </div>
+                <div class="control-group">
+                <label for="contact-description" class="control-label">
+                Last name:</label>
+                <input id="contact-description" name="lastName"
+                type="text" value="<%= description %>"/>
+                </div>
+                <div class="control-group">
+                <label for="contact-calories" class="control-label">
+                Phone number:</label>
+                <input id="contact-calories" name="phoneNumber"
+                type="text" value="<%= calories  %>"/>
+                </div>
+                <button class="btn js-submit">Save</button>
+                </form>
+        </script>
+
+
+
+
 
 
         <script type="text/template" id="meal-template">
@@ -86,14 +116,44 @@
             <td><%= title %></td>
             <td><%= description %></td>
             <td>
-            <a href="#" class="btn btn-small js-show"><i class="icon-eye-open"></i>Show</a>
+            <a href="#meals/<%= id %>" class="js-show"><button class="btn btn-info">Show</button></a>
+            <a href="#meals/<%= id %>/edit" class="js-edit"><button class="btn btn-warning">Edit</button></a>
             <button class="deleteBtn btn btn-small btn-danger"><i class="icon-remove"></i>Delete</button>
             </td>
         </script>        
         <script type="text/template" id="meal-view">
+            <a href="#meals">Back to list</a>
+            <br />
             <h1><%= title %> <%= description %></h1>
             <p><strong>ID:</strong> <%= id %></p>
         </script>
+
+        <script type="text/template" id="missing-meal-view">
+            <a href="#meals">Back to list</a>
+            <div class="alert alert-danger">This meal doesn't exist !</div>
+        </script>
+        
+        <script type="text/template" id="loading-view">
+            <h1><%= title %></h1>
+            <p><%= message %></p>
+            <div id="spinner"></div>
+        </script>
+        
+        <script type="text/template" id="meal-form">
+            <h1>Edit <%= title %></h1>
+            <form>
+                <div class="control-group">
+                    <label for="meal-title" class="control-label">Title:</label>
+                    <input id="meal-title" name="title" type="text" value="<%= title %>"/>
+                </div>
+                <div class="control-group">
+                    <label for="contact-description" class="control-label">Description:</label>
+                    <input id="contact-description" name="description" type="text" value="<%= description %>"/>
+                </div>
+                <button class="btn js-submit">Save</button>
+            </form>
+         </script>        
+        
 
         <!-- The javascript libraries get included here (edited for brevity) -->
 
@@ -102,14 +162,26 @@
         <script src="js/lib/underscore-min.js"></script>
         <script src="js/lib/backbone-min.js"></script>
         <script src="js/lib/backbone.marionette.js"></script>
-
+        <script src="js/lib/backbone.localStorage.js"></script>
+        <script src="js/lib/spin.js"></script>
+        <script src="js/lib/jquery.spin.js"></script>
+        
         <script src="js/app.js"></script>
+        <script src="js/apps/config/storage/localstorage.js"></script>
         <script src="js/entities/meal.js"></script>
+        <script src="js/apps/meals/meals_app.js"></script>
+        <script src="js/common/views.js"></script>
+        
         <script src="js/apps/meals/list/list_view.js"></script>
         <script src="js/apps/meals/list/list_controller.js"></script>
+        
         <script src="js/apps/meals/show/show_view.js"></script>
         <script src="js/apps/meals/show/show_controller.js"></script>
+
+        <script src="js/apps/meals/edit/edit_view.js"></script>
+        <script src="js/apps/meals/edit/edit_controller.js"></script>        
         
+
         <script>
             MealPlanner.start();
         </script>
