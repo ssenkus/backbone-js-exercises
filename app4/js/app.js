@@ -1,7 +1,8 @@
 var MealPlanner = new Marionette.Application();
 
 MealPlanner.addRegions({
-    mainRegion: '#main-region'
+    mainRegion: '#main-region',
+    dialogRegion: '#dialog-region'
 });
 
 MealPlanner.navigate = function(route, options) {

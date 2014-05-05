@@ -2,11 +2,27 @@ MealPlanner.module("Entities", function(Entities, ContactManager, Backbone, Mari
 
     Entities.Meal = Backbone.Model.extend({
         urlRoot: 'meals',
-        /*        defaults: {
-         title: 'Default Title',
-         description: 'This is the default description',
-         calories: 123
-         } */
+        validate: function(attrs, options) {
+
+            var errors = {};
+            if (!attrs.title) {
+                errors.title = 'can not be blank';
+            }
+            if (!attrs.description) {
+                errors.description = 'can not be blank';
+            } else {
+                if (attrs.description.length < 2) {
+                    errors.description = 'is too short';
+                }
+            }
+            if (!attrs.calories) {
+                errors.calories = 'can not be blank';
+            }
+            if (!_.isEmpty(errors)) {
+                console.log('errors',errors)
+                return errors;
+            }
+        }
     });
 
     Entities.configureStorage(Entities.Meal);
@@ -30,15 +46,18 @@ MealPlanner.module("Entities", function(Entities, ContactManager, Backbone, Mari
             {
                 id: 1,
                 title: 'Snack Bars',
-                description: 'A delicious treat!'
+                description: 'A delicious treat!',
+                calories: 123
             }, {
                 id: 2,
                 title: 'Tomato Soup',
-                description: 'A liquid meal'
+                description: 'A liquid meal',
+                calories: 400
             }, {
                 id: 3,
                 title: 'Gluten-Free French Bread',
-                description: 'All the bread you love, without the gluten!'
+                description: 'All the bread you love, without the gluten!',
+                calories: 90
             }
         ]);
 

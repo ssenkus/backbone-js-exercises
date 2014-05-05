@@ -13,11 +13,16 @@ MealPlanner.module("MealsApp.Show", function(Show, MealPlanner, Backbone, Marion
             var fetchingMeal = MealPlanner.request('meal:entity', id);
             $.when(fetchingMeal).done(function(meal) {
                 console.log('fetched', fetchingMeal, meal);
-                //              var meal = new MealPlanner.Entities.Meal({id: id})
+
                 var mealView;
                 if (meal !== undefined) {
                     mealView = new Show.Meal({
                         model: meal
+                    });
+                    
+                    mealView.on('meal:edit', function(meal) {
+                        console.log('triggering MealPlanner meal:edit')
+                        MealPlanner.trigger('meal:edit', meal.get('id'));
                     });
                 } else {
                     console.log('MissingMeal!!')

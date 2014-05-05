@@ -1,21 +1,42 @@
 MealPlanner.module('MealsApp.List', function(List, MealsApp, Backbone, Marionette, $, _) {
     List.Meal = Backbone.Marionette.ItemView.extend({
-        template: '#meal-template',
+        template: '#meal-list-item',
         tagName: 'tr',
         events: {
             'click td': 'highlightName',
-            'click button.deleteBtn': 'deleteClicked',
-            "click td a.js-show": "showClicked"
+            'click button.js-delete': 'deleteClicked',
+            'click td a.js-edit': 'editClicked',
+            "click button.js-show": "showClicked"
+        },
+        editClicked: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.trigger('meal:edit', this.model);
+
         },
         showClicked: function(e) {
             e.preventDefault();
             e.stopPropagation();
             this.trigger("meal:show", this.model);
         },
+        deleteClicked: function(e) {
+            e.stopPropagation();
+            //this.model.collection.remove(this.model)
+            this.trigger('meal:delete', this.model);
+        },
         remove: function() {
             var self = this;
             this.$el.fadeOut(500, function() {
-                Marionette.ItemView.prototype.remove.call(self)
+                Marionette.ItemView.prototype.remove.call(self);
+            });
+
+        },
+        flash: function(cssClass) {
+            var $view = this.$el;
+            $view.hide().toggleClass(cssClass).fadeIn(800, function() {
+                setTimeout(function() {
+                    $view.toggleClass(cssClass);
+                }, 500);
             });
 
         },
@@ -23,11 +44,6 @@ MealPlanner.module('MealsApp.List', function(List, MealsApp, Backbone, Marionett
             this.$el.toggleClass('warning')
             console.log('highlight toggled on model', this.model)
         },
-        deleteClicked: function(e) {
-            e.stopPropagation();
-            //this.model.collection.remove(this.model)
-            this.trigger('meal:delete', this.model);
-        }
     });
 
     List.Meals = Backbone.Marionette.CompositeView.extend({

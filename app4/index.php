@@ -8,6 +8,7 @@
         <title>Backbone/Marionette basic setup with nested views</title>
 
         <link rel="stylesheet" href="css/bootstrap.css" />
+        <link rel="stylesheet" href="css/jquery-ui-1.10.4.css" />
         <style type="text/css">
             body {
                 background: #ffffff;
@@ -68,57 +69,30 @@
                 replaced by our app as soon as we start it.</p>
         </div>
 
+        <div id="dialog-region"></div>
+        
         <script type="text/template" id="meal-list">
             <thead>
                 <tr>
-                    <th>id</th>
-                    <th>title</th>
-                    <th>description</th>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Calories</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody></tbody>
         </script>
 
-
-        <script type="text/template" id="contact-form">
-                <h1>Edit <%= firstName %> <%= lastName %></h1>
-                <form>
-                <div class="control-group">
-                <label for="contact-title" class="control-label">
-                First name:</label>
-                <input id="contact-title" name="firstName"
-                type="text" value="<%= title %>"/>
-                </div>
-                <div class="control-group">
-                <label for="contact-description" class="control-label">
-                Last name:</label>
-                <input id="contact-description" name="lastName"
-                type="text" value="<%= description %>"/>
-                </div>
-                <div class="control-group">
-                <label for="contact-calories" class="control-label">
-                Phone number:</label>
-                <input id="contact-calories" name="phoneNumber"
-                type="text" value="<%= calories  %>"/>
-                </div>
-                <button class="btn js-submit">Save</button>
-                </form>
-        </script>
-
-
-
-
-
-
-        <script type="text/template" id="meal-template">
+        <script type="text/template" id="meal-list-item">
             <td><%= id %></td>
             <td><%= title %></td>
             <td><%= description %></td>
+            <td><%= calories %></td>
             <td>
-            <a href="#meals/<%= id %>" class="js-show"><button class="btn btn-info">Show</button></a>
-            <a href="#meals/<%= id %>/edit" class="js-edit"><button class="btn btn-warning">Edit</button></a>
-            <button class="deleteBtn btn btn-small btn-danger"><i class="icon-remove"></i>Delete</button>
+                <a href="#meals/<%= id %>" class="js-show"><button class="btn btn-info">Show</button></a>
+                <a href="#meals/<%= id %>/edit" class="js-edit"><button class="btn btn-warning">Edit</button></a>   
+                <button class="btn btn-danger js-delete"><i class="icon-remove"></i>Delete</button>
             </td>
         </script>        
         <script type="text/template" id="meal-view">
@@ -140,17 +114,20 @@
         </script>
         
         <script type="text/template" id="meal-form">
-            <h1>Edit <%= title %></h1>
             <form>
-                <div class="control-group">
+                <div class="form-group">
                     <label for="meal-title" class="control-label">Title:</label>
-                    <input id="meal-title" name="title" type="text" value="<%= title %>"/>
+                    <input class="form-control" id="meal-title" name="title" type="text" value="<%= title %>"/>
                 </div>
-                <div class="control-group">
-                    <label for="contact-description" class="control-label">Description:</label>
-                    <input id="contact-description" name="description" type="text" value="<%= description %>"/>
+                <div class="form-group">
+                    <label for="meal-description" class="control-label">Description:</label>
+                    <input class="form-control" id="meal-description" name="description" type="text" value="<%= description %>"/>
                 </div>
-                <button class="btn js-submit">Save</button>
+                <div class="form-group">
+                    <label for="meal-calories" class="control-label">Calories:</label>
+                    <input class="form-control" id="meal-calories" name="calories" type="text" value="<%= calories %>"/>
+                </div>                
+                <button class="btn btn-success js-submit">Save</button>
             </form>
          </script>        
         
@@ -159,13 +136,18 @@
 
         <!-- libraries -->
         <script src="js/lib/jquery.min.js"></script>
+        <script src="js/lib/jquery-ui-1.10.4.js"></script>
         <script src="js/lib/underscore-min.js"></script>
         <script src="js/lib/backbone-min.js"></script>
         <script src="js/lib/backbone.marionette.js"></script>
         <script src="js/lib/backbone.localStorage.js"></script>
+        <script src="js/lib/backbone.syphon.js"></script>
+        
+        <!-- spinner -->
         <script src="js/lib/spin.js"></script>
         <script src="js/lib/jquery.spin.js"></script>
         
+        <!-- app -->
         <script src="js/app.js"></script>
         <script src="js/apps/config/storage/localstorage.js"></script>
         <script src="js/entities/meal.js"></script>
