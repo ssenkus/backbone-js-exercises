@@ -130,7 +130,16 @@
                 <button class="btn btn-success js-submit">Save</button>
             </form>
          </script>        
-        
+
+         <script type="text/template" id="meals-list-layout">
+             <div id="panel-region"></div>
+             <div id="meals-region"></div>
+         </script>
+         
+         <script type="text/template" id="meals-list-panel">
+             <button class="btn btn-primary js-new">Add a meal</button>
+         </script>
+         
 
         <!-- The javascript libraries get included here (edited for brevity) -->
 
@@ -154,6 +163,8 @@
         <script src="js/apps/meals/meals_app.js"></script>
         <script src="js/common/views.js"></script>
         
+        <script src="js/apps/meals/common/views.js"></script>
+        
         <script src="js/apps/meals/list/list_view.js"></script>
         <script src="js/apps/meals/list/list_controller.js"></script>
         
@@ -163,7 +174,9 @@
         <script src="js/apps/meals/edit/edit_view.js"></script>
         <script src="js/apps/meals/edit/edit_controller.js"></script>        
         
-
+        <script src="js/apps/meals/new/new_view.js"></script>
+        
+        
         <script>
             MealPlanner.start();
         </script>

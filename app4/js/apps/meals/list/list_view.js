@@ -1,4 +1,20 @@
 MealPlanner.module('MealsApp.List', function(List, MealsApp, Backbone, Marionette, $, _) {
+
+    List.Layout = Backbone.Marionette.Layout.extend({
+        template: '#meals-list-layout',
+        regions: {
+            panelRegion: '#panel-region',
+            mealsRegion: '#meals-region'
+        }
+    });
+
+    List.Panel = Backbone.Marionette.ItemView.extend({
+        template: '#meals-list-panel',
+        triggers: {
+            'click button.js-new': 'meal:new'
+        }
+    });
+
     List.Meal = Backbone.Marionette.ItemView.extend({
         template: '#meal-list-item',
         tagName: 'tr',

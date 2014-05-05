@@ -1,4 +1,5 @@
 MealPlanner.module('Common.Views', function(Views, MealPlanner, Backbone, Marionette, $, _) {
+
     Views.Loading = Marionette.ItemView.extend({
         template: '#loading-view',
         initialize: function(options) {

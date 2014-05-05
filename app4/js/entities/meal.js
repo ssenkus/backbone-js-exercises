@@ -2,6 +2,11 @@ MealPlanner.module("Entities", function(Entities, ContactManager, Backbone, Mari
 
     Entities.Meal = Backbone.Model.extend({
         urlRoot: 'meals',
+        defaults: {
+            title: '',
+            description: '',
+            calories: 0,
+        },
         validate: function(attrs, options) {
 
             var errors = {};
