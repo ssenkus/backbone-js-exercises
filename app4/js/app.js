@@ -1,6 +1,7 @@
 var MealPlanner = new Marionette.Application();
 
 MealPlanner.addRegions({
+    headerRegion: '#header-region',
     mainRegion: '#main-region',
     dialogRegion: '#dialog-region'
 });

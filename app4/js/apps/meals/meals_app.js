@@ -11,14 +11,19 @@ MealPlanner.module("MealsApp", function(MealsApp, MealPlanner, Backbone, Marione
         listMeals: function() {
             console.log("route to list meals was triggered");
             MealsApp.List.Controller.listMeals();
+            
+            MealPlanner.execute('set:active:header','meals');
+            
         },
         showMeal: function(id) {
             console.log('route to show meal ' + id + ' was triggered');
             MealsApp.Show.Controller.showMeal(id);
+            MealPlanner.execute('set:active:header','meals');
         },
         editMeal: function(id) {
             console.log('edit that meal!', id);
             MealsApp.Edit.Controller.editMeal(id);
+            MealPlanner.execute('set:active:header','meals');
             
         }
         
